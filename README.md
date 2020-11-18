@@ -1,5 +1,4 @@
 # xspeedit REST API
-Xspeedit robot 
 
 ```
  git clone
