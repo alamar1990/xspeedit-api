@@ -29,7 +29,11 @@ yarn test
 GET -> http://localhost:3000/
 
 
+
+
 POST -> http://localhost:3000/processItems
+
+// Parameter
 ```
 {
     "items_string" : "94861616984"
