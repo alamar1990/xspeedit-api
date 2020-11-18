@@ -1,4 +1,4 @@
-# xspeedit-api
+# xspeedit REST API
 Xspeedit robot 
 
 ```
