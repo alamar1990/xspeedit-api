@@ -1,27 +1,23 @@
 # xspeedit REST API
 
 ```
- git clone
- 
+ git clone 
 ```
 
 
 ```
-yarn install
- 
+yarn install 
 ```
 
 
 // Start Server
 ```
-yarn start 
- 
+yarn start  
 ```
 
 // Run Tests
 ```
-yarn test
- 
+yarn test 
 ```
 
 // Test Api
@@ -35,7 +31,9 @@ POST -> http://localhost:3000/processItems
 ```
 {
     "items_string" : "94861616984"
-}
- 
+} 
 ```
-
+// Create docker image
+```
+docker build -t xspeedit-api .
+```
