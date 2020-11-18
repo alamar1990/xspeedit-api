@@ -1,17 +1,25 @@
 # xspeedit-api
 Xspeedit robot 
 
-$# git clone
+```
+ git clone
+ 
+```
 
-$# yarn install
+
+```
+yarn install
+ 
+```
+
 
 // Start Server
 
-$# yarn start 
+-# yarn start 
 
 // Run Tests
 
-$# yarn test
+-# yarn test
 
 GET -> http://localhost:3000/
 
