@@ -3,32 +3,59 @@ const BOX_CAPACITY = 10;
 
 
 class Xspeedit {
-    constructor() {
-        this.boxes = [];
+    constructor(inputString) {
+        this.boxes = []
+        this.boxCount = 0
+        this.boxString = this.processItems(inputString)
+    }
+
+    getBoxCount () {
+        return this.boxCount;
+    }
+
+    getBoxes () {
+        return this.boxes;
+    }
+
+    getBoxString () {
+        return this.boxString;
     }
 
     processItems(items){
         // Clean and convert the items string into an array
         let arrayItems = this.getCleanNumbersArray(items)
-        // Get a reversed sorted array for getting a greater item first
-        arrayItems = this.reverseSortItems(arrayItems)
-
+        let boxes = []
         while (arrayItems.length > 0){
-            this.boxes.push(this.fillABox(arrayItems))
+            boxes.push(this.fillABox(arrayItems))
         }
-        return this.boxes
+        this.boxes = boxes
+        this.boxCount = boxes.length
+        return boxes.map(x => x + '/').join('');
     }
 
     fillABox(items){
         if (!Array.isArray(items)) return;
-        // Put the first greater item for getting a reference
         const firstItem = items.shift()
+        let isReachedMaxium = false
         let box = []
         box.push(firstItem + '')
-        while (this.weighBox(box) <= BOX_CAPACITY && items.length > 0 && box.length < MAX_ITEMS_PER_BOX) {
-            const nearestFitItem = BOX_CAPACITY - firstItem
-            const itemFound = this.searchNearestValueToMax(nearestFitItem, items)
-            box.push(itemFound + '')
+        let boxWeight = this.weighBox(box)
+        while (!isReachedMaxium && items.length > 0) {
+            const itemFound = this.searchNearestValueToMax(firstItem, items)
+            if ((itemFound + boxWeight) > BOX_CAPACITY){
+                isReachedMaxium = true
+                break
+            }
+            if (box.length >= MAX_ITEMS_PER_BOX){
+                isReachedMaxium = true
+                break
+            }
+            if (itemFound) {
+                box.push(itemFound + '')
+                items.splice(items.indexOf(itemFound), 1); // Pull the item out of array
+                boxWeight = this.weighBox(box)
+            }
+
         }
         return box.join('')
     }
@@ -41,25 +68,23 @@ class Xspeedit {
         return nonZerosInput.split('').map((number) => parseInt(number));
     }
 
-    searchNearestValueToMax (nearestItemValue, items) {
-        if (!Array.isArray(items) || typeof nearestItemValue !== 'number' ) return;
-        while (nearestItemValue > 0) {
-            if (items.indexOf(nearestItemValue) !== -1) {
-                items.splice(items.indexOf(nearestItemValue), 1);
-                return nearestItemValue;
+    searchNearestValueToMax (currentItem, items) {
+        if (!Array.isArray(items) || typeof currentItem !== 'number' ) return;
+        let nearestFitItem = BOX_CAPACITY - currentItem
+        while (nearestFitItem > 0) {
+            if (items.indexOf(nearestFitItem) !== -1) {
+                // items.splice(items.indexOf(nearestFitItem), 1);
+                return nearestFitItem
             }
-            --nearestItemValue
+            --nearestFitItem
         }
     }
 
-    reverseSortItems(items) {
-        return Array.isArray(items) ? items.sort((a, b) => b - a) : null;
-    }
-
     weighBox(box){
-        return Array.isArray(box) ? box.reduce((a, b) => a + b, 0) : null;
+        if(!Array.isArray(box)) return
+        let numberArray = box.map((i) => Number(i));
+        return numberArray.reduce((a, b) => a + b, 0);
     }
-
 }
 
 module.exports = Xspeedit;
