@@ -42,6 +42,7 @@ class Xspeedit {
         let boxWeight = this.weighBox(box)
         while (!isReachedMaxium && items.length > 0) {
             const itemFound = this.searchNearestValueToMax(firstItem, items)
+            if (!itemFound) break
             if ((itemFound + boxWeight) > BOX_CAPACITY){
                 isReachedMaxium = true
                 break
