@@ -14,12 +14,18 @@ yarn install
 
 
 // Start Server
-
--# yarn start 
+```
+yarn start 
+ 
+```
 
 // Run Tests
+```
+yarn test
+ 
+```
 
--# yarn test
+// Test Api
 
 GET -> http://localhost:3000/
 
